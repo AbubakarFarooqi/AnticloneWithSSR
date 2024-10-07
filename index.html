@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Login Form</title>
+  </head>
+  <body>
+    <h1>Login Page</h1>
+
+    <!-- Div where the form will be injected -->
+    <div id="formContainer">
+      <p>Loading login form...</p>
+    </div>
+
+    <script>
+      // Function to load the login form dynamically
+      async function loadLoginForm() {
+        try {
+          const response = await fetch("http://localhost:3000/api/form");
+
+          if (response.ok) {
+            const formHtml = await response.text();
+            document.getElementById("formContainer").innerHTML = formHtml;
+          } else {
+            document.getElementById("formContainer").innerHTML =
+              "<p>Failed to load form.</p>";
+          }
+        } catch (error) {
+          document.getElementById("formContainer").innerHTML =
+            "<p>Error loading form.</p>";
+        }
+      }
+
+      // Call the function when the page loads
+      window.onload = loadLoginForm;
+    </script>
+  </body>
+</html>
